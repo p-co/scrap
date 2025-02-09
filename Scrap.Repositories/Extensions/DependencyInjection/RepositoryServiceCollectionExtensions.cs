@@ -8,6 +8,7 @@ namespace Scrap.Repositories.Extensions.DependencyInjection
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
             services.AddTransient<IWebsiteRepository, WebsiteRepository>();
+            services.AddTransient<ICollectedInfoRepository, CollectedInfoRepository>();
 
             return services;
         }
