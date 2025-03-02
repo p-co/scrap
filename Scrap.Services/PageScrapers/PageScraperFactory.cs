@@ -10,6 +10,7 @@ namespace Scrap.Services.PageScrapers
             {
                 "a in card div" => new AInCardDivScraper(),
                 "a in mat-panel-title" => new AInMatPanelTitleScraper(),
+                "a in table" => new AInTableScraper(),
                 "" => new AInUlScraper(),
                 _ => new AInUlScraper(),
             };
