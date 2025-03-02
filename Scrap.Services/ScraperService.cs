@@ -1,30 +1,37 @@
 ﻿using OpenQA.Selenium;
+using Scrap.Model;
 using Scrap.Repositories.Abstractions;
 using Scrap.Services.Abstractions;
+using Scrap.Services.Abstractions.Mappers;
 
 namespace Scrap.Services
 {
     internal class ScraperService : IScraperService
     {
         private readonly IWebsiteRepository _websiteRepository;
+        private readonly ICollectedInfoRepository _collectedInfoRepository;
+        private readonly ICollectedInfoMapper _collectedInfoMapper;
         private readonly IWebDriver _webDriver;
 
-        public ScraperService(IWebsiteRepository websiteRepository, IWebDriver webDriver)
+        public ScraperService(IWebsiteRepository websiteRepository, ICollectedInfoRepository collectedInfoRepository, ICollectedInfoMapper collectedInfoMapper, IWebDriver webDriver)
         {
             _websiteRepository = websiteRepository;
+            _collectedInfoRepository = collectedInfoRepository;
+            _collectedInfoMapper = collectedInfoMapper;
             _webDriver = webDriver;
         }
 
         public void ScrapeAll()
         {
-            IEnumerable<string> urls = _websiteRepository.GetAllWebsites().Select(x => x.Link);
+            IEnumerable<Website> websites = _websiteRepository.GetAllWebsites();
 
-            foreach (var url in urls)
+            foreach (var website in websites)
             {
-                Console.WriteLine($"Scraping tables from: {url}");
-                var links = ReadHtml(url);
+                Console.WriteLine($"Scraping tables from: {website.Name}");
+                var links = ReadHtml(website.Link);
                 foreach (var link in links)
                 {
+                    _collectedInfoRepository.SaveCollectedInfo(_collectedInfoMapper.ToDao(link, website));
                     Console.WriteLine($"{link.Key} {link.Value}");
                 }
             }
