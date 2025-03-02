@@ -5,12 +5,12 @@ namespace Scrap.Services.Mappers
 {
     internal class CollectedInfoMapper : ICollectedInfoMapper
     {
-        public CollectedInfo ToDao(KeyValuePair<string, string> infos, Website website)
+        public CollectedInfo ToDao(Tuple<string, string> infos, Website website)
         {
             return new CollectedInfo()
             {
-                Name = infos.Key,
-                Link = infos.Value,
+                Name = infos.Item1,
+                Link = infos.Item2,
                 ScrapedAt = DateTime.Now,
                 WebsiteId = website.Id
             };

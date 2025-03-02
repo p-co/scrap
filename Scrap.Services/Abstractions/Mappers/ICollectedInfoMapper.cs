@@ -4,6 +4,6 @@ namespace Scrap.Services.Abstractions.Mappers
 {
     internal interface ICollectedInfoMapper
     {
-        public CollectedInfo ToDao(KeyValuePair<string, string> infos, Website website);
+        public CollectedInfo ToDao(Tuple<string, string> infos, Website website);
     }
 }

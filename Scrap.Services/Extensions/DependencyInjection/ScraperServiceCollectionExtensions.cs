@@ -4,6 +4,7 @@ using OpenQA.Selenium.Chrome;
 using Scrap.Services.Abstractions;
 using Scrap.Services.Abstractions.Mappers;
 using Scrap.Services.Mappers;
+using Scrap.Services.PageScrapers;
 
 namespace Scrap.Services.Extensions.DependencyInjection
 {
@@ -14,6 +15,8 @@ namespace Scrap.Services.Extensions.DependencyInjection
             services.AddTransient<IScraperService, ScraperService>();
 
             services.AddTransient<ICollectedInfoMapper, CollectedInfoMapper>();
+
+            services.AddTransient<IPageScraperFactory, PageScraperFactory>();
 
             services.AddSingleton<IWebDriver, ChromeDriver>();
 
