@@ -8,6 +8,7 @@ namespace Scrap.Services.PageScrapers
         {
             return htmlDisposition switch
             {
+                "a in card div" => new AInCardDivScraper(),
                 "a in mat-panel-title" => new AInMatPanelTitleScraper(),
                 "" => new AInUlScraper(),
                 _ => new AInUlScraper(),
